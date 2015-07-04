@@ -43,7 +43,7 @@ module.exports = function (grunt) {
 			prod: {
 				options: {
 					sassDir: 'dev/scss',
-					cssDir: 'widget',
+					cssDir: 'prod',
 					imagesDir: 'dev/img',
 					httpPath: '/',
 					environment: 'production'
