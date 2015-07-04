@@ -1,0 +1,59 @@
+div.button {
+  position: fixed;
+  top: 75px;
+  left: 75px;
+  background-color: #00AFF2;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  padding: 10px;
+  cursor: pointer;
+  opacity: .8;
+  transition: opacity .25s ease-in-out;
+}
+
+div.button:hover {
+  opacity: 0.9;
+  transition: opacity .25s ease-in-out;
+}
+
+div.image {
+  background: inline-image('../img/telephone.svg') no-repeat center center;
+  background-size: 70%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+}
+
+div.image:hover {
+  animation: shake-icon 1s infinite ease-in-out;
+}
+
+div.wave {
+  background-color: rgba(0,175,242,0.5);
+  opacity: 0.75;
+}
+
+@keyframes shake-icon {
+  0% {
+	transform: rotate(0deg) scale(1) skew(1deg)
+  }
+  10% {
+	transform: rotate(-25deg) scale(1) skew(1deg)
+  }
+  20% {
+	transform: rotate(25deg) scale(1) skew(1deg)
+  }
+  30% {
+	transform: rotate(-25deg) scale(1) skew(1deg)
+  }
+  40% {
+	transform: rotate(25deg) scale(1) skew(1deg)
+  }
+  50% {
+	transform: rotate(0deg) scale(1) skew(1deg)
+  }
+  100% {
+	transform: rotate(0deg) scale(1) skew(1deg)
+  }
+}
