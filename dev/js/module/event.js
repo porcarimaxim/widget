@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Event module
+ * @fileOverview Event module
  */
 (function (window) {
 	var App = window.gApp;
@@ -21,7 +21,7 @@
 
 	/**
 	 * Module used to manage App events
-	 * @module App/Event
+	 * @module Event
 	 */
 	var exports = function () {
 	};
@@ -30,7 +30,8 @@
 	 * Fire one added event by name or id
 	 * @param {String|Number} name Event name
 	 * @param {String} [data] Optional event data
-	 * @return {Boolean} True if event exists, False otherwise
+	 * @return {Boolean} True if event fired, False otherwise
+	 * @example Event.fire('showPopup', {message: 'Please wait...'})
 	 */
 	exports.prototype.fire = function (name, data) {
 		if (typeof name === 'number') {
@@ -63,6 +64,9 @@
 	 * @param {Function} func Event listener
 	 * @param {Boolean} [capture] Event capture
 	 * @return {Number|Boolean} True if event was added, False otherwise
+	 * @example var eventId = Event.add('showPopup', function(event) {
+	 *      alert(event.detail.message);
+	 * })
 	 */
 	exports.prototype.add = function (type, func, capture) {
 		if (typeof type === 'string'
@@ -75,11 +79,12 @@
 	};
 
 	/**
-	 * Remove event
+	 * Remove event by arguments or id
 	 * @param {String|Number} type Event name
 	 * @param {Function} [func] Event listener
 	 * @param {Boolean} [capture] Event capture
 	 * @return {Boolean} True if event was removed, False otherwise
+	 * @example Event.remove(eventId);
 	 */
 	exports.prototype.remove = function (type, func, capture) {
 		if (typeof type === 'number') {
@@ -100,6 +105,7 @@
 	 * Remove all events
 	 *
 	 * @returns {Boolean} True if all events was removed, False otherwise
+	 * @example Event.removeAll();
 	 */
 	exports.prototype.removeAll = function () {
 		var id, done = 1;
@@ -146,8 +152,5 @@
 		return false;
 	};
 
-	/**
-	 * Pass module to App
-	 */
 	App.setProperty('Event', new exports);
 })(window);

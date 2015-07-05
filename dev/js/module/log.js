@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Log module
+ * @fileOverview Log module
  */
 (function (window) {
 	var App = window.gApp;
@@ -21,7 +21,7 @@
 
 	/**
 	 * Module used to log actions
-	 * @module App/Log
+	 * @module Log
 	 */
 	var exports = function () {
 		startRequestIncrement();
@@ -33,6 +33,7 @@
 	 * @param {String} [type] Log type
 	 * @param {Boolean} [send] Set True to send log data to server
 	 * @return {Boolean} True if log data was successful processed, False otherwise
+	 * @example Log.write('Login failed', 'notice');
 	 */
 	exports.prototype.write = function (message, type, send) {
 		if (typeof message !== 'string') {
@@ -41,7 +42,7 @@
 
 		var done = 0;
 		if (typeof window.console !== 'undefined') {
-			window.console.log(message);
+			window.console.log(type, message);
 			done |= 1;
 		}
 
@@ -57,6 +58,7 @@
 	 * @param {Object|String} message Log message
 	 * @param {String|Null} type Log type
 	 * @return {Boolean} True if request was sent, False otherwise
+	 * @todo Implement AJAX module to send log data
 	 */
 	var sendRequest = function (message, type) {
 		if (requestLimit === 0) {
@@ -120,8 +122,5 @@
 		}
 	};
 
-	/**
-	 * Pass module to App
-	 */
 	App.setProperty('Log', new exports);
 })(window);

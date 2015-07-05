@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * App
+ * @fileOverview App
  */
 (function (window) {
 	/**
@@ -19,6 +19,7 @@
 	 * @param {String} name Mixin name
 	 * @return {Function|Boolean} Mixin specified by name or False if mixin not found
 	 * @memberof App
+	 * @example var extender = App.getMixin('Extender');
 	 */
 	App.prototype.getMixin = function (name) {
 		return getMixin(name);
@@ -28,7 +29,6 @@
 	 * Collection of mixins
 	 * @type {Object}
 	 * @private
-	 * @memberof App
 	 */
 	var Mixins = window.gApp.Mixins;
 
@@ -38,7 +38,6 @@
 	 * @param {Object} scope Scope of extended class
 	 * @param {Array} [args] Optional arguments of extended class
 	 * @return {Boolean} True if mixin is applied, otherwise False
-	 * @memberof App
 	 * @private
 	 */
 	var applyMixin = function (name, scope, args) {
@@ -58,7 +57,6 @@
 	 * Get mixin from collection of mixins
 	 * @param {String} name Mixin name
 	 * @return {Function|Boolean} Mixin specified by mixinName or False if mixin not found
-	 * @memberof App
 	 * @private
 	 */
 	var getMixin = function (name) {

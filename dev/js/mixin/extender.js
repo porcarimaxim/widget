@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Extender mixin
+ * @fileOverview Extender mixin
  */
 (function (window) {
 	var App = window.gApp || {};

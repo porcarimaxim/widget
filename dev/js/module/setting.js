@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Setting module
+ * @fileOverview Setting module
  */
 (function (window) {
 	var App = window.gApp;
@@ -10,7 +10,7 @@
 
 	/**
 	 * Module used to store settings
-	 * @module App/Setting
+	 * @module Setting
 	 */
 	var exports = function () {
 		App.getMixin('Extender').apply(this);
@@ -21,6 +21,7 @@
 	 * @param {String|Object} name Setting name
 	 * @param {*} [value] Setting value
 	 * @returns {Boolean|number} Number of successful saved settings, otherwise False
+	 * @example Setting.set('clientId', 12345);
 	 */
 	exports.prototype.set = function (name, value) {
 		var values = {};
@@ -47,10 +48,11 @@
 	};
 
 	/**
-	 * Get setting
+	 * Get setting value
 	 * @param {string} name Setting name
-	 * @param {*} [def] Default value that will be returned if called setting not found
-	 * @returns {*} Setting value, otherwise False
+	 * @param {*} [def] Default value that will be returned if called setting not exists
+	 * @returns {*} Setting value or del, otherwise False
+	 * @example var clientId = Setting.get('clientId');
 	 */
 	exports.prototype.get = function (name, def) {
 		if ((name in settings)) {
@@ -65,6 +67,7 @@
 	/**
 	 * Remove setting
 	 * @param {string} name Setting name
+	 * @example Setting.remove('clientId');
 	 */
 	exports.prototype.remove = function (name) {
 		delete settings[name];
@@ -72,6 +75,7 @@
 
 	/**
 	 * Remove all settings
+	 * @example Setting.removeAll();
 	 */
 	exports.prototype.removeAll = function () {
 		settings = {};
