@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Logger module
+ * Log module
  */
 (function (window) {
 	var App = window.gApp;
@@ -21,7 +21,7 @@
 
 	/**
 	 * Module used to log actions
-	 * @module App/Logger
+	 * @module App/Log
 	 */
 	var exports = function () {
 		startRequestIncrement();
@@ -65,12 +65,16 @@
 
 		var requestData = getRequestData(message, type);
 
-		// TODO: Add AJAX module to post data to server
-		/*$.ajax({
-		 url: gApp.getSetting().get('airComURL'),
-		 type: 'POST',
-		 data: requestData
-		 });*/
+		// TODO: Remove hardcoded URL
+		var url = 'localhost',
+			xhr = new XMLHttpRequest();
+
+		xhr.open('POST', url);
+		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		xhr.onreadystatechange = function (data) {
+
+		};
+		xhr.send(requestData);
 
 		requestLimit--;
 
@@ -81,7 +85,7 @@
 	 * Get additional data about log action
 	 * @param {String} message Log message
 	 * @param {String} [type] Log type
-	 * @return {string} JSON with additional log action data
+	 * @return {String} JSON with additional log action data
 	 * @private
 	 */
 	var getRequestData = function (message, type) {
@@ -119,5 +123,5 @@
 	/**
 	 * Pass module to App
 	 */
-	App.setProperty('Logger', new exports);
+	App.setProperty('Log', new exports);
 })(window);

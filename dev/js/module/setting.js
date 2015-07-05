@@ -2,7 +2,6 @@
 
 /**
  * Setting module
- * @dependency LoggerModule
  */
 (function (window) {
 	var App = window.gApp;
@@ -41,7 +40,6 @@
 		}
 
 		if (added === 0) {
-			App.Logger.write('No one setting was added');
 			return false;
 		}
 
@@ -60,8 +58,6 @@
 		} else if (def) {
 			return def;
 		}
-
-		App.Logger.write('Required "' + name + '" setting not exists');
 
 		return false;
 	};

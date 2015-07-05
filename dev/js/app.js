@@ -6,8 +6,9 @@
 (function (window) {
 	/**
 	 * App
-	 * @constructor
+	 * @class
 	 * @global
+	 * @todo Create native Ajax module
 	 */
 	var App = function () {
 		applyMixin('Extender', this);

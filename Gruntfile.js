@@ -28,7 +28,7 @@ module.exports = function (grunt) {
 		},
 
 		/**
-		 * SASS
+		 * Compass
 		 */
 		compass: {
 			dev: {
