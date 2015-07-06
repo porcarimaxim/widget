@@ -6,7 +6,29 @@
 (function (window) {
 	var App = window.gApp;
 
+	/**
+	 * Settings collection
+	 * @type {Object}
+	 * @private
+	 */
 	var settings = {};
+
+	/**
+	 * Count settings
+	 * @returns {Number} Number of settings
+	 * @private
+	 */
+	var countSettings = function () {
+		var setting,
+			count = 0;
+		for (setting in settings) {
+			if (settings.hasOwnProperty(setting)) {
+				count++;
+			}
+		}
+
+		return count;
+	};
 
 	/**
 	 * Module used to store settings
@@ -25,7 +47,7 @@
 	 */
 	exports.prototype.set = function (name, value) {
 		var values = {};
-		if(typeof name === 'string') {
+		if (typeof name === 'string') {
 			values[name] = value;
 		}
 		else {
@@ -51,7 +73,7 @@
 	 * Get setting value
 	 * @param {string} name Setting name
 	 * @param {*} [def] Default value that will be returned if called setting not exists
-	 * @returns {*} Setting value or del, otherwise False
+	 * @returns {*} Setting value or default value if setting not exists, otherwise False
 	 * @example var clientId = Setting.get('clientId');
 	 */
 	exports.prototype.get = function (name, def) {
@@ -62,6 +84,15 @@
 		}
 
 		return false;
+	};
+
+	/**
+	 * Get all settings
+	 * @returns {Object|Boolean} All settings or False if no one setting exists
+	 * @example var settings = Setting.getAll();
+	 */
+	exports.prototype.getAll = function () {
+		return countSettings() > 0 ? settings : false;
 	};
 
 	/**

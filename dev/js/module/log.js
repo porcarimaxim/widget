@@ -20,44 +20,10 @@
 		requestInterval = 5000;
 
 	/**
-	 * Module used to log actions
-	 * @module Log
-	 */
-	var exports = function () {
-		startRequestIncrement();
-	};
-
-	/**
-	 * Log action
-	 * @param {String} message Log message
-	 * @param {String} [type] Log type
-	 * @param {Boolean} [send] Set True to send log data to server
-	 * @return {Boolean} True if log data was successful processed, False otherwise
-	 * @example Log.write('Login failed', 'notice');
-	 */
-	exports.prototype.write = function (message, type, send) {
-		if (typeof message !== 'string') {
-			return false;
-		}
-
-		var done = 0;
-		if (typeof window.console !== 'undefined') {
-			window.console.log(type, message);
-			done |= 1;
-		}
-
-		if (send === true) {
-			done |= sendRequest(message, type);
-		}
-
-		return done === 1;
-	};
-
-	/**
 	 * Send log action to server
 	 * @param {Object|String} message Log message
 	 * @param {String|Null} type Log type
-	 * @return {Boolean} True if request was sent, False otherwise
+	 * @returns {Boolean} True if request was sent, False otherwise
 	 * @todo Implement AJAX module to send log data
 	 */
 	var sendRequest = function (message, type) {
@@ -87,7 +53,7 @@
 	 * Get additional data about log action
 	 * @param {String} message Log message
 	 * @param {String} [type] Log type
-	 * @return {String} JSON with additional log action data
+	 * @returns {String} JSON with additional log action data
 	 * @private
 	 */
 	var getRequestData = function (message, type) {
@@ -121,6 +87,41 @@
 			requestLimit++;
 		}
 	};
+
+	/**
+	 * Module used to log actions
+	 * @module Log
+	 */
+	var exports = function () {
+		startRequestIncrement();
+	};
+
+	/**
+	 * Log action
+	 * @param {String} message Log message
+	 * @param {String} [type] Log type
+	 * @param {Boolean} [send] Set True to send log data to server
+	 * @returns {Boolean} True if log data was successful processed, False otherwise
+	 * @example Log.write('Login failed', 'notice');
+	 */
+	exports.prototype.write = function (message, type, send) {
+		if (typeof message !== 'string') {
+			return false;
+		}
+
+		var done = 0;
+		if (typeof window.console !== 'undefined') {
+			window.console.log(type, message);
+			done |= 1;
+		}
+
+		if (send === true) {
+			done |= sendRequest(message, type);
+		}
+
+		return done === 1;
+	};
+
 
 	App.setProperty('Log', new exports);
 })(window);

@@ -6,10 +6,13 @@
 (function (window) {
 	var App = window.gApp;
 
+
+
 	/**
 	 * Module used to send ajax requests
 	 * @module Ajax
 	 * @todo Create this core module
+	 * @demo https://github.com/mzabriskie/axios
 	 */
 	var exports = function () {
 
@@ -23,7 +26,7 @@
 
 	};
 
-	// Ohhh...
+	// Ohhh, these reserved words...
 	exports.prototype.delete = function (url, config) {
 
 	};

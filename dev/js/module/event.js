@@ -20,6 +20,38 @@
 		eventBus = [];
 
 	/**
+	 * Get event name by id
+	 * @param {Number} id Event id
+	 * @returns {String|Boolean} Event name or False if event not exists
+	 * @private
+	 */
+	var getEventNameById = function (id) {
+		if (id in eventBus) {
+			return eventBus[id][0];
+		}
+		return false;
+	};
+
+	/**
+	 * Checks if event name exists
+	 * @param {String} name Event name
+	 * @returns {Boolean} True if event name exists, otherwise False
+	 * @private
+	 */
+	var eventNameExists = function (name) {
+		var id;
+		for (id in eventBus) {
+			if (eventBus.hasOwnProperty(id)) {
+				if (eventBus[id][0] === name) {
+					return true
+				}
+			}
+		}
+
+		return false;
+	};
+
+	/**
 	 * Module used to manage App events
 	 * @module Event
 	 */
@@ -30,7 +62,7 @@
 	 * Fire one added event by name or id
 	 * @param {String|Number} name Event name
 	 * @param {String} [data] Optional event data
-	 * @return {Boolean} True if event fired, False otherwise
+	 * @returns {Boolean} True if event fired, False otherwise
 	 * @example Event.fire('showPopup', {message: 'Please wait...'})
 	 */
 	exports.prototype.fire = function (name, data) {
@@ -63,7 +95,7 @@
 	 * @param {String} type Event name
 	 * @param {Function} func Event listener
 	 * @param {Boolean} [capture] Event capture
-	 * @return {Number|Boolean} True if event was added, False otherwise
+	 * @returns {Number|Boolean} True if event was added, False otherwise
 	 * @example var eventId = Event.add('showPopup', function(event) {
 	 *      alert(event.detail.message);
 	 * })
@@ -72,6 +104,9 @@
 		if (typeof type === 'string'
 			&& typeof func === 'function'
 		) {
+			if (eventNameExists(type)) {
+				return false;
+			}
 			eventEl.addEventListener(type, func, capture);
 			return eventBus.push(arguments) - 1;
 		}
@@ -83,7 +118,7 @@
 	 * @param {String|Number} type Event name
 	 * @param {Function} [func] Event listener
 	 * @param {Boolean} [capture] Event capture
-	 * @return {Boolean} True if event was removed, False otherwise
+	 * @returns {Boolean} True if event was removed, False otherwise
 	 * @example Event.remove(eventId);
 	 */
 	exports.prototype.remove = function (type, func, capture) {
@@ -117,39 +152,6 @@
 		}
 
 		return done === 1;
-	};
-
-
-	/**
-	 * Get event name by id
-	 * @param {Number} id Event id
-	 * @returns {String|Boolean} Event name or False if event not exists
-	 * @private
-	 */
-	var getEventNameById = function (id) {
-		if (id in eventBus) {
-			return eventBus[id][0];
-		}
-		return false;
-	};
-
-	/**
-	 * Checks if event name exists
-	 * @param {String} name Event name
-	 * @returns {Boolean} True if event name exists, otherwise False
-	 * @private
-	 */
-	var eventNameExists = function (name) {
-		var id;
-		for (id in eventBus) {
-			if (eventBus.hasOwnProperty(id)) {
-				if (eventBus[id][0] === name) {
-					return true
-				}
-			}
-		}
-
-		return false;
 	};
 
 	App.setProperty('Event', new exports);
