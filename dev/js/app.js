@@ -1,6 +1,10 @@
 'use strict';
 
 /**
+ * TODO: What func return something or not
+ */
+
+/**
  * @fileOverview App
  */
 (function (window) {

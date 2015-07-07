@@ -52,7 +52,7 @@
 	};
 
 	/**
-	 * Module used to manage App events
+	 * Module used to manage app events
 	 * @module Event
 	 */
 	var exports = function () {

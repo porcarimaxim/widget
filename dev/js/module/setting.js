@@ -98,10 +98,15 @@
 	/**
 	 * Remove setting
 	 * @param {string} name Setting name
+	 * @returns {Boolean} True if setting was deleted, False otherwise
 	 * @example Setting.remove('clientId');
 	 */
 	exports.prototype.remove = function (name) {
+		if (!(name in settings)) {
+			return false;
+		}
 		delete settings[name];
+		return true;
 	};
 
 	/**

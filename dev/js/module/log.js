@@ -27,7 +27,7 @@
 	 * @todo Implement AJAX module to send log data
 	 */
 	var sendRequest = function (message, type) {
-		if (requestLimit === 0) {
+		if (requestLimit <= 0) {
 			return false;
 		}
 
@@ -105,21 +105,22 @@
 	 * @example Log.write('Login failed', 'notice');
 	 */
 	exports.prototype.write = function (message, type, send) {
-		if (typeof message !== 'string') {
-			return false;
-		}
+		var done = false;
 
-		var done = 0;
 		if (typeof window.console !== 'undefined') {
-			window.console.log(type, message);
-			done |= 1;
+			if (type) {
+				window.console.log(type, message);
+			} else {
+				window.console.log(message);
+			}
+			done = true;
 		}
 
 		if (send === true) {
-			done |= sendRequest(message, type);
+			done = sendRequest(message, type);
 		}
 
-		return done === 1;
+		return done;
 	};
 
 
