@@ -6,6 +6,7 @@
 
 /**
  * @fileOverview App
+ * @todo Fallow this boilerplate {@link https://github.com/umdjs/umd/blob/master/amdWeb.js}
  */
 (function (window) {
 
