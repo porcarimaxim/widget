@@ -8,8 +8,8 @@
 
 	/**
 	 * Get XHR response
-	 * @param {XMLHttpRequest} xhr
-	 * @returns {*[]} Return response and XHR instance
+	 * @param {XMLHttpRequest} xhr XMLHttpRequest instance
+	 * @returns {Array} Response collection
 	 * @private
 	 */
 	var getXhrResponse = function (xhr) {
@@ -19,7 +19,7 @@
 		} catch (Exception) {
 			response = xhr.responseText;
 		}
-		return [response, xhr];
+		return [response];
 	};
 
 	/**
@@ -41,22 +41,31 @@
 		var xhrInstance = XMLHttpRequest || ActiveXObject,
 			request = new xhrInstance('MSXML2.XMLHTTP.3.0'),
 			methods = {
-				done: function () {},
-				fail: function () {},
-				always: function () {}
+				done: function () {
+				},
+				fail: function () {
+				},
+				always: function () {
+				}
 			};
 
 		request.open(method, url, true);
 
+		// TODO: Need function
 		var index, header;
 		for (index in headers) {
 			if (headers.hasOwnProperty(index)) {
 				header = headers[index];
-				request.setRequestHeader(header.type, header.value);
+				if (typeof header.name === 'string'
+					&& typeof header.value === 'string'
+				) {
+					request.setRequestHeader(header.name, header.value);
+				}
 			}
 		}
 
-		if (data) {
+		// TODO: Need intelligent function that set correct content type by data content
+		if (typeof data !== 'undefined') {
 			request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
 		}
 
@@ -71,9 +80,10 @@
 			}
 		};
 
+		// TODO: Need intelligent function that convert received data to XHLHttpRequest format
 		request.send(data);
 
-		var setMethod = function(name, func) {
+		var setMethod = function (name, func) {
 			if (typeof name === 'string'
 				&& typeof func === 'function'
 			) {
@@ -93,9 +103,6 @@
 			always: function (callback) {
 				setMethod('always', callback);
 				return callbacks;
-			},
-			getXhr: function () {
-				return request;
 			}
 		};
 
@@ -103,10 +110,11 @@
 	};
 
 	/**
-	 * Set short methods
-	 * @param {Object} scope Scope of module
+	 * Set short request methods
+	 * @param {Object} scope Scope of module class
 	 * @param {Array} methods Collection of method names
 	 * @param {Boolean} [hasData] Set true to set data argument
+	 * @private
 	 */
 	var setRequestMethods = function (scope, methods, hasData) {
 		var index, method, args, body;
@@ -143,6 +151,64 @@
 	exports.prototype.request = function (url, config) {
 		return new Xhr(url, config);
 	};
+
+	/**
+	 * GET request
+	 * @name get
+	 * @function
+	 * @param {String} url URL to which the request is sent
+	 * @param {Object} [config] A set of key/value pairs that configure the request
+	 * @returns {Xhr}
+	 */
+
+	/**
+	 * HEAD request
+	 * @name head
+	 * @function
+	 * @param {String} url URL to which the request is sent
+	 * @param {Object} [config] A set of key/value pairs that configure the request
+	 * @returns {Xhr}
+	 */
+
+	/**
+	 * POST request
+	 * @name post
+	 * @function
+	 * @param {String} url URL to which the request is sent
+	 * @param {String|Object} data Data to be sent to the server
+	 * @param {Object} [config] A set of key/value pairs that configure the request
+	 * @returns {Xhr}
+	 */
+
+	/**
+	 * PUT request
+	 * @name put
+	 * @function
+	 * @param {String} url URL to which the request is sent
+	 * @param {String|Object} data Data to be sent to the server
+	 * @param {Object} [config] A set of key/value pairs that configure the request
+	 * @returns {Xhr}
+	 */
+
+	/**
+	 * PATCH request
+	 * @name patch
+	 * @function
+	 * @param {String} url URL to which the request is sent
+	 * @param {String|Object} data Data to be sent to the server
+	 * @param {Object} [config] A set of key/value pairs that configure the request
+	 * @returns {Xhr}
+	 */
+
+	/**
+	 * DELETE request
+	 * @name delete
+	 * @function
+	 * @param {String} url URL to which the request is sent
+	 * @param {String|Object} data Data to be sent to the server
+	 * @param {Object} [config] A set of key/value pairs that configure the request
+	 * @returns {Xhr}
+	 */
 
 	App.setProperty('Ajax', new exports);
 })(window);
