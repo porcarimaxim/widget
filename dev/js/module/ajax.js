@@ -6,49 +6,96 @@
 (function (window) {
 	var App = window.gApp;
 
-	var parse = function (request) {
+	/**
+	 * Get XHR response
+	 * @param {XMLHttpRequest} xhr
+	 * @returns {*[]} Return response and XHR instance
+	 * @private
+	 */
+	var getXhrResponse = function (xhr) {
 		var response;
 		try {
-			response = JSON.parse(request.responseText);
+			response = JSON.parse(xhr.responseText);
 		} catch (Exception) {
-			response = request.responseText;
+			response = xhr.responseText;
 		}
-		return [response, request];
+		return [response, xhr];
 	};
 
-	// Example: https://github.com/mzabriskie/axios
-	var Xhr = function (type, url, data) {
-		var compatibleXhr = window.XMLHttpRequest || ActiveXObject,
-			xhrInstance = new compatibleXhr('MSXML2.XMLHTTP.3.0'),
+	/**
+	 * XHR instance
+	 * @param {String} url URL to which the request is sent
+	 * @param {Object} [config] A set of key/value pairs that configure the request
+	 * @returns {{done: Function, fail: Function, always: Function}}
+	 * @constructor
+	 * @private
+	 */
+	var Xhr = function (url, config) {
+		url = typeof url === 'string' ? url : window.location.href;
+		config = typeof config === 'object' ? config : {};
+
+		var method = typeof config.method === 'string' ? config.method.toUpperCase() : 'GET',
+			data = config.data,
+			headers = typeof config.headers === 'object' ? config.headers : {};
+
+		var xhrInstance = XMLHttpRequest || ActiveXObject,
+			request = new xhrInstance('MSXML2.XMLHTTP.3.0'),
 			methods = {
-				success: function () {},
-				error: function () {}
+				done: function () {},
+				fail: function () {},
+				always: function () {}
 			};
 
-		xhrInstance.open(type, url, true);
+		request.open(method, url, true);
 
-		// TODO: Add headers
-		xhrInstance.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		var index, header;
+		for (index in headers) {
+			if (headers.hasOwnProperty(index)) {
+				header = headers[index];
+				request.setRequestHeader(header.type, header.value);
+			}
+		}
 
-		xhrInstance.onreadystatechange = function () {
-			if (xhrInstance.readyState === 4) {
-				if (xhrInstance.status >= 200 && xhrInstance.status < 300) {
-					methods.success.apply(methods, parse(xhrInstance));
+		if (data) {
+			request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
+		}
+
+		request.onreadystatechange = function () {
+			if (request.readyState === 4) {
+				if (request.status >= 200 && request.status < 300) {
+					methods.done.apply(methods, getXhrResponse(request));
 				} else {
-					methods.error.apply(methods, parse(xhrInstance));
+					methods.fail.apply(methods, getXhrResponse(request));
 				}
+				methods.always.apply(methods, getXhrResponse(request));
 			}
 		};
-		xhrInstance.send(data);
+
+		request.send(data);
+
+		var setMethod = function(name, func) {
+			if (typeof name === 'string'
+				&& typeof func === 'function'
+			) {
+				methods[name] = func;
+			}
+		};
 
 		var callbacks = {
-			success: function (callback) {
-				methods.success = callback;
+			done: function (callback) {
+				setMethod('done', callback);
 				return callbacks;
 			},
-			error: function (callback) {
-				methods.error = callback;
+			fail: function (callback) {
+				setMethod('fail', callback);
 				return callbacks;
+			},
+			always: function (callback) {
+				setMethod('always', callback);
+				return callbacks;
+			},
+			getXhr: function () {
+				return request;
 			}
 		};
 
@@ -56,71 +103,45 @@
 	};
 
 	/**
-	 * Module used to send ajax requests
+	 * Set short methods
+	 * @param {Object} scope Scope of module
+	 * @param {Array} methods Collection of method names
+	 * @param {Boolean} [hasData] Set true to set data argument
+	 */
+	var setRequestMethods = function (scope, methods, hasData) {
+		var index, method, args, body;
+		for (index in methods) {
+			if (methods.hasOwnProperty(index)) {
+				method = methods[index];
+				args = 'url,config';
+				body = 'config=config||{};config.method="' + method + '";';
+				if (hasData) {
+					args = 'url,data,config';
+					body += 'config.data=data;';
+				}
+				body += 'return this.request(url, config);';
+				scope.__proto__[method] = new Function(args, body);
+			}
+		}
+	};
+
+	/**
+	 * Perform an asynchronous HTTP request
 	 * @module Ajax
-	 * @todo Fallow documentation {@link https://xhr.spec.whatwg.org/}
-	 * @todo Fallow this functionality {@link https://github.com/mzabriskie/axios} or {@link http://api.jquery.com/jquery.ajax/}
 	 */
 	var exports = function () {
-
+		setRequestMethods(this, ['get', 'head']);
+		setRequestMethods(this, ['post', 'put', 'patch', 'delete'], true);
 	};
 
 	/**
-	 * Get request
-	 * @param url
+	 * Configurable request
+	 * @param {String} url URL to which the request is sent
+	 * @param {Object} [config] A set of key/value pairs that configure the request
 	 * @returns {Xhr}
 	 */
-	exports.prototype['get'] = function (url) {
-		return new Xhr('GET', url);
-	};
-
-	/**
-	 * Head request
-	 * @param url
-	 * @returns {Xhr}
-	 */
-	exports.prototype['head'] = function (url) {
-		return new Xhr('HEAD', url);
-	};
-
-	/**
-	 * Delete request
-	 * @param url
-	 * @param data
-	 * @returns {Xhr}
-	 */
-	exports.prototype['delete'] = function (url, data) {
-		return new Xhr('DELETE', url, data);
-	};
-
-	/**
-	 * Post request
-	 * @param url
-	 * @param data
-	 * @returns {Xhr}
-	 */
-	exports.prototype['post'] = function (url, data) {
-		return new Xhr('POST', url, data);
-	};
-
-	/**
-	 * Put request
-	 * @param url
-	 * @param data
-	 * @returns {Xhr}
-	 */
-	exports.prototype['put'] = function (url, data) {
-		return new Xhr('PUT', url, data);
-	};
-
-	/**
-	 * Patch request
-	 * @param url
-	 * @param data
-	 * @returns {Xhr}
-	 */
-	exports.prototype['patch'] = function (url, data) {
-		return new Xhr('PATCH', url, data);
+	exports.prototype.request = function (url, config) {
+		return new Xhr(url, config);
 	};
 
 	App.setProperty('Ajax', new exports);

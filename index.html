@@ -31,8 +31,21 @@
 <script type="text/javascript" src="dev/js/module/event.js"></script>
 <script type="text/javascript" src="dev/js/module/setting.js"></script>
 <script type="text/javascript" src="dev/js/module/firebase.js"></script>
-<script type="text/javascript">
 
+<script type="text/javascript">
+	var done = function (response, xhr) {
+				console.log('done', response, xhr);
+			},
+			fail = function () {
+				console.log('fail', ':(');
+			},
+			always = function () {
+				console.log('always', 'I do not care');
+			};
+	gApp.Ajax.get('http://cmb.laravel.local/api/v1/users/1')
+			.done(done)
+			.fail(fail)
+			.always(always);
 </script>
 
 <script type="text/javascript" src="//localhost:35729/livereload.js"></script>
