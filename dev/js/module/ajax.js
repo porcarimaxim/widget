@@ -7,12 +7,49 @@
 	var App = window.gApp;
 
 	/**
-	 * Get XHR response
-	 * @param {XMLHttpRequest} xhr XMLHttpRequest instance
+	 * Set request headers
+	 * @param {XMLHttpRequest} request Instance of XMLHttpRequest
+	 * @param {Object} headers Collection of headers
+	 * @example setRequestHeaders(request, [{name: 'Referer': value: 'http://google.com'}])
+	 * @private
+	 */
+	var setRequestHeaders = function(request, headers) {
+		var index, header;
+		for (index in headers) {
+			if (headers.hasOwnProperty(index)) {
+				header = headers[index];
+				if (typeof header.name === 'string'
+					&& typeof header.value === 'string'
+				) {
+					request.setRequestHeader(header.name, header.value);
+				}
+			}
+		}
+	};
+
+	/**
+	 * Get request data and set content type by data
+	 * @param {XMLHttpRequest} request Instance of XMLHttpRequest
+	 * @param {Object|String|Undefined} data
+	 * @returns {*}
+	 */
+	var getRequestData = function(request, data) {
+		if (typeof data === 'object') {
+			request.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+			data = JSON.stringify(data);
+		} else if (typeof data === 'string') {
+			request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
+		}
+		return data;
+	};
+
+	/**
+	 * Get request response
+	 * @param {XMLHttpRequest} xhr Instance of XMLHttpRequest
 	 * @returns {Array} Response collection
 	 * @private
 	 */
-	var getXhrResponse = function (xhr) {
+	var getRequestResponse = function (xhr) {
 		var response;
 		try {
 			response = JSON.parse(xhr.responseText);
@@ -35,78 +72,60 @@
 		config = typeof config === 'object' ? config : {};
 
 		var method = typeof config.method === 'string' ? config.method.toUpperCase() : 'GET',
-			data = config.data,
+			data = typeof config.data !== 'undefined' ? config.data : null,
 			headers = typeof config.headers === 'object' ? config.headers : {};
 
-		var xhrInstance = XMLHttpRequest || ActiveXObject,
-			request = new xhrInstance('MSXML2.XMLHTTP.3.0'),
-			methods = {
+		var request = new XMLHttpRequest();
+
+		var callbacks = {
 				done: function () {
 				},
 				fail: function () {
 				},
 				always: function () {
 				}
-			};
+			},
+			setCallback = function (name, func) {
+			if (typeof func === 'function') {
+				callbacks[name] = func;
+			}
+		};
 
 		request.open(method, url, true);
 
-		// TODO: Need function
-		var index, header;
-		for (index in headers) {
-			if (headers.hasOwnProperty(index)) {
-				header = headers[index];
-				if (typeof header.name === 'string'
-					&& typeof header.value === 'string'
-				) {
-					request.setRequestHeader(header.name, header.value);
-				}
-			}
-		}
+		setRequestHeaders(request, headers);
 
-		// TODO: Need intelligent function that set correct content type by data content
-		if (typeof data !== 'undefined') {
-			request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
-		}
+		data = getRequestData(request, data);
 
 		request.onreadystatechange = function () {
 			if (request.readyState === 4) {
 				if (request.status >= 200 && request.status < 300) {
-					methods.done.apply(methods, getXhrResponse(request));
+					callbacks.done.apply(callbacks, getRequestResponse(request));
 				} else {
-					methods.fail.apply(methods, getXhrResponse(request));
+					callbacks.fail.apply(callbacks, getRequestResponse(request));
 				}
-				methods.always.apply(methods, getXhrResponse(request));
+				callbacks.always.apply(callbacks, getRequestResponse(request));
 			}
 		};
 
-		// TODO: Need intelligent function that convert received data to XHLHttpRequest format
 		request.send(data);
 
-		var setMethod = function (name, func) {
-			if (typeof name === 'string'
-				&& typeof func === 'function'
-			) {
-				methods[name] = func;
+		var chaining = {
+			done: function (func) {
+				setCallback('done', func);
+				return chaining;
+			},
+			fail: function (func) {
+				setCallback('fail', func);
+				return chaining;
+			},
+			always: function (func) {
+				setCallback('always', func);
+				return chaining;
 			}
 		};
 
-		var callbacks = {
-			done: function (callback) {
-				setMethod('done', callback);
-				return callbacks;
-			},
-			fail: function (callback) {
-				setMethod('fail', callback);
-				return callbacks;
-			},
-			always: function (callback) {
-				setMethod('always', callback);
-				return callbacks;
-			}
-		};
-
-		return callbacks;
+		return chaining;
 	};
 
 	/**
@@ -146,7 +165,21 @@
 	 * Configurable request
 	 * @param {String} url URL to which the request is sent
 	 * @param {Object} [config] A set of key/value pairs that configure the request
-	 * @returns {Xhr}
+	 * @returns {{done: Function, fail: Function, always: Function}|Xhr} Collection of callback functions (done, fail, always)
+	 * @example Ajax.request('/api/session', {
+	 *      method: 'post',
+	 *      headers: [
+	 *          {name: 'Referer', value: 'http://www.host.com'},
+	 *          {name: 'Cache-Control', value: 'no-cache'}
+	 *      ],
+	 *      data: {sessionId: '12345678'}
+	 * }).done(function(data) {
+	 *      var session = data;
+	 * }).fail(function(data) {
+	 *      var error = data;
+	 * }).always(function(data) {
+	 *      var response = data;
+	 * });
 	 */
 	exports.prototype.request = function (url, config) {
 		return new Xhr(url, config);
@@ -158,7 +191,10 @@
 	 * @function
 	 * @param {String} url URL to which the request is sent
 	 * @param {Object} [config] A set of key/value pairs that configure the request
-	 * @returns {Xhr}
+	 * @returns {{done: Function, fail: Function, always: Function}|Xhr} Collection of callback functions (done, fail, always)
+	 * @example Ajax.get('/api/users?limit=100').done(function(data) {
+	 *      var users = data.users;
+	 * });
 	 */
 
 	/**
@@ -167,7 +203,10 @@
 	 * @function
 	 * @param {String} url URL to which the request is sent
 	 * @param {Object} [config] A set of key/value pairs that configure the request
-	 * @returns {Xhr}
+	 * @returns {{done: Function, fail: Function, always: Function}|Xhr} Collection of callback functions (done, fail, always)
+	 * @example Ajax.head('/api/ping').fail(function() {
+	 *      alert('Client cannot ping server');
+	 * });
 	 */
 
 	/**
@@ -175,9 +214,13 @@
 	 * @name post
 	 * @function
 	 * @param {String} url URL to which the request is sent
-	 * @param {String|Object} data Data to be sent to the server
+	 * @param {Object|String} data Data to be sent to the server
 	 * @param {Object} [config] A set of key/value pairs that configure the request
-	 * @returns {Xhr}
+	 * @returns {{done: Function, fail: Function, always: Function}|Xhr} Collection of callback functions (done, fail, always)
+	 * @example Ajax.post('/api/log', {
+	 *      type: 'warning',
+	 *      message: 'Login was unsuccessful'
+	 * });
 	 */
 
 	/**
@@ -185,9 +228,14 @@
 	 * @name put
 	 * @function
 	 * @param {String} url URL to which the request is sent
-	 * @param {String|Object} data Data to be sent to the server
+	 * @param {Object|String} data Data to be sent to the server
 	 * @param {Object} [config] A set of key/value pairs that configure the request
-	 * @returns {Xhr}
+	 * @returns {{done: Function, fail: Function, always: Function}|Xhr} Collection of callback functions (done, fail, always)
+	 * @example Ajax.put('/api/users/1/status', {
+	 *      message: 'Be happy'
+	 * }).done(function() {
+	 *      alert('Your status was successfully updated');
+	 * });
 	 */
 
 	/**
@@ -195,9 +243,17 @@
 	 * @name patch
 	 * @function
 	 * @param {String} url URL to which the request is sent
-	 * @param {String|Object} data Data to be sent to the server
+	 * @param {Object|String} data Data to be sent to the server
 	 * @param {Object} [config] A set of key/value pairs that configure the request
-	 * @returns {Xhr}
+	 * @returns {{done: Function, fail: Function, always: Function}|Xhr} Collection of callback functions (done, fail, always)
+	 * @example var loadingMask = true;
+	 * Ajax.patch('/api/users/1', {
+	 *      country_id: 10
+	 * }).always(function() {
+	 *      loadingMask = false;
+	 * }).fail(function() {
+	 *      alert('Cannot update profile');
+	 * });
 	 */
 
 	/**
@@ -205,9 +261,10 @@
 	 * @name delete
 	 * @function
 	 * @param {String} url URL to which the request is sent
-	 * @param {String|Object} data Data to be sent to the server
+	 * @param {Object|String} data Data to be sent to the server
 	 * @param {Object} [config] A set of key/value pairs that configure the request
-	 * @returns {Xhr}
+	 * @returns {{done: Function, fail: Function, always: Function}|Xhr} Collection of callback functions (done, fail, always)
+	 * @example Ajax.delete('/api/users/1/photo/1', 'recycleBin=0');
 	 */
 
 	App.setProperty('Ajax', new exports);

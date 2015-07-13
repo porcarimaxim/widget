@@ -7,7 +7,7 @@
 	var App = window.gApp;
 
 	/**
-	 * Module used to manage firebase account
+	 * Manage firebase instance
 	 * @module Firebase
 	 * @see https://www.firebase.com/docs/web/api/
 	 * @todo Set firebase account

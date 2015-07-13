@@ -31,7 +31,7 @@
 	};
 
 	/**
-	 * Module used to store settings
+	 * Set and get setting values
 	 * @module Setting
 	 */
 	var exports = function () {

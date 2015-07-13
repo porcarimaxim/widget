@@ -89,7 +89,7 @@
 	};
 
 	/**
-	 * Module used to log actions
+	 * Outputs a message to the web console and/or send it web server
 	 * @module Log
 	 */
 	var exports = function () {

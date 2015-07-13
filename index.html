@@ -46,6 +46,13 @@
 			.done(done)
 			.fail(fail)
 			.always(always);
+
+	gApp.Ajax.put('http://cmb.laravel.local/api/v1/users/1', 'email=' + Date.now() + '@mail.ru').done(function(v) {
+		console.log('put-string', v);
+	});
+	gApp.Ajax.put('http://cmb.laravel.local/api/v1/users/1', {email: Date.now() + '@mail.md'}, {headers: [{name: 'Test', value: '00'}]}).done(function(v) {
+		console.log('put-object', v);
+	});
 </script>
 
 <script type="text/javascript" src="//localhost:35729/livereload.js"></script>

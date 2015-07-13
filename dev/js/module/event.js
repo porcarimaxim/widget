@@ -52,7 +52,7 @@
 	};
 
 	/**
-	 * Module used to manage app events
+	 * Manage private events
 	 * @module Event
 	 */
 	var exports = function () {
