@@ -104,9 +104,6 @@
 		if (typeof type === 'string'
 			&& typeof func === 'function'
 		) {
-			if (eventNameExists(type)) {
-				return false;
-			}
 			eventEl.addEventListener(type, func, capture);
 			return eventBus.push(arguments) - 1;
 		}

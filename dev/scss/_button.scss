@@ -1,7 +1,7 @@
 div.button {
   position: fixed;
-  top: 75px;
-  left: 75px;
+  right: 75px;
+  bottom: 75px;
   background-color: #00AFF2;
   border-radius: 100%;
   width: 50px;
@@ -9,7 +9,7 @@ div.button {
   padding: 10px;
   cursor: pointer;
   opacity: .8;
-  transition: opacity .25s ease-in-out;
+  animation: fadeIn 250ms ease-in-out both;
 }
 
 div.button:hover {
@@ -32,6 +32,11 @@ div.image:hover {
 div.wave {
   background-color: rgba(0,175,242,0.5);
   opacity: 0.75;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 0.8; }
 }
 
 @keyframes shake-icon {
