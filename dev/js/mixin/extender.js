@@ -4,15 +4,23 @@
  * @fileOverview Extender mixin
  */
 (function (window) {
-	var App = window.gApp || {};
-	App.Mixins = App.Mixins || {};
+	/**
+	 * App namespace
+	 * @type {Object}
+	 */
+	var gApp = window.gApp === 'object' ? window.gApp : {};
+
+	/**
+	 * Mixins collection
+	 */
+	gApp.Mixins = gApp.Mixins === 'object' ? gApp.Mixins : {};
 
 	/**
 	 * Permit to extend class by adding method and property setters
 	 * @mixin
 	 * @global
 	 */
-	App.Mixins.Extender = function () {
+	gApp.Mixins.Extender = function () {
 		var self = this;
 
 		/**
@@ -47,5 +55,5 @@
 		};
 	};
 
-	window.gApp = App;
+	window.gApp = gApp;
 }(window));

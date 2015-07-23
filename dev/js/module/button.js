@@ -25,8 +25,6 @@
 		waveEl = createElementWithClass('div', 'wave'),
 		imageEl = createElementWithClass('div', 'image');
 
-
-	buttonEl.style.visibility = 'hidden';
 	buttonEl.appendChild(circleEl);
 	buttonEl.appendChild(waveEl);
 	buttonEl.appendChild(imageEl);
@@ -40,10 +38,10 @@
 	 */
 	var exports = function () {
 		App.Event.add('showButton', function () {
-			buttonEl.style.visibility = 'visible';
+			buttonEl.className = 'button show';
 		});
 		App.Event.add('hideButton', function () {
-			buttonEl.style.visibility = 'hidden';
+			buttonEl.className = 'button';
 		});
 	};
 

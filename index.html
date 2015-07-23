@@ -16,6 +16,12 @@
 
 <h2>Call me back</h2>
 
+<script type="text/javascript">
+	gApp = {
+		clientId: 1234
+	};
+</script>
+
 <script type="text/javascript" src="dev/js/lib/firebase.min.js"></script>
 
 <script type="text/javascript" src="dev/js/mixin/extender.js"></script>
@@ -27,29 +33,6 @@
 <script type="text/javascript" src="dev/js/module/firebase.js"></script>
 <script type="text/javascript" src="dev/js/module/tpl.js"></script>
 <script type="text/javascript" src="dev/js/module/button.js"></script>
-
-<script type="text/javascript">
-	var done = function (response, xhr) {
-				console.log('done', response, xhr);
-			},
-			fail = function () {
-				console.log('fail', ':(');
-			},
-			always = function () {
-				console.log('always', 'I do not care');
-			};
-	gApp.Ajax.get('http://cmb.laravel.local/api/v1/users/1')
-			.done(done)
-			.fail(fail)
-			.always(always);
-
-	gApp.Ajax.put('http://cmb.laravel.local/api/v1/users/1', 'email=' + Date.now() + '@mail.ru').done(function(v) {
-		console.log('put-string', v);
-	});
-	gApp.Ajax.put('http://cmb.laravel.local/api/v1/users/1', {email: Date.now() + '@mail.md'}, {headers: [{name: 'Test', value: '00'}]}).done(function(v) {
-		console.log('put-object', v);
-	});
-</script>
 
 <script type="text/javascript" src="//localhost:35729/livereload.js"></script>
 

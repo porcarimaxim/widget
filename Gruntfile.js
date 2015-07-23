@@ -54,8 +54,8 @@ module.exports = function (grunt) {
 		/**
 		 * JSDoc
 		 */
-		jsdoc : {
-			dev : {
+		jsdoc: {
+			dev: {
 				jsdoc: 'node_modules/.bin/jsdoc.cmd',
 				src: ['dev/js/**/*.js'],
 				dest: 'doc'

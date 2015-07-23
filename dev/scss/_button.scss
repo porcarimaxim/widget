@@ -8,8 +8,12 @@ div.button {
   height: 50px;
   padding: 10px;
   cursor: pointer;
-  opacity: .8;
-  animation: fadeIn 250ms ease-in-out both;
+  transition: opacity 1s ease-out;
+  opacity: 0;
+}
+
+div.show {
+  opacity: 0.8;
 }
 
 div.button:hover {
@@ -30,13 +34,17 @@ div.image:hover {
 }
 
 div.wave {
-  background-color: rgba(0,175,242,0.5);
+  background-color: rgba(0, 175, 242, 0.5);
   opacity: 0.75;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 0.8; }
+  from {
+	opacity: 0;
+  }
+  to {
+	opacity: 0.8;
+  }
 }
 
 @keyframes shake-icon {

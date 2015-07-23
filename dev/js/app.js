@@ -1,21 +1,37 @@
 'use strict';
 
 /**
- * TODO: What func return something or not
- */
-
-/**
  * @fileOverview App
  * @todo Fallow this boilerplate {@link https://github.com/umdjs/umd/blob/master/amdWeb.js}
  */
 (function (window) {
+	/**
+	 * gApp namespace
+	 * @type {Object}
+	 * @private
+	 */
+	var gApp = typeof window.gApp === 'object' ? window.gApp : {};
 
 	/**
 	 * Collection of mixins
 	 * @type {Object}
 	 * @private
 	 */
-	var Mixins = window.gApp.Mixins;
+	var Mixins = typeof gApp.Mixins === 'object' ? gApp.Mixins : {};
+
+	/**
+	 * Client id
+	 * @type {String|Undefined}
+	 * @private
+	 */
+	var clientId = gApp.clientId;
+
+	/**
+	 * API URL address
+	 * @type {string}
+	 * @private
+	 */
+	var apiURL = 'https://demo3251476.mockable.io/api/v1/';
 
 	/**
 	 * Get mixin from collection of mixins
@@ -70,6 +86,33 @@
 	 */
 	App.prototype.getMixin = function (name) {
 		return getMixin(name);
+	};
+
+	/**
+	 * Set client id
+	 * @param {String} id Client id
+	 * @returns {Function|Boolean}
+	 */
+	App.prototype.setClientId = function (id) {
+		clientId = id;
+	};
+
+	/**
+	 * Get client id
+	 * @returns {String|Boolean} Client id or False if id not exists
+	 */
+	App.prototype.getClientId = function () {
+		return typeof clientId !== 'undefined' ? clientId : false;
+	};
+
+	/**
+	 * Get full API URL
+	 * @param address
+	 * @returns {string}
+	 * @constructor
+	 */
+	App.prototype.getApi = function (address) {
+		return apiURL + address;
 	};
 
 	/**
