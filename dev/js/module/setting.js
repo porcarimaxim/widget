@@ -35,7 +35,6 @@
 	 * @module Setting
 	 */
 	var exports = function () {
-		App.getMixin('Extender').apply(this);
 	};
 
 	/**

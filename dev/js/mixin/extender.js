@@ -8,19 +8,19 @@
 	 * App namespace
 	 * @type {Object}
 	 */
-	var gApp = window.gApp === 'object' ? window.gApp : {};
+	var App = typeof window.gApp === 'object' ? window.gApp : {};
 
 	/**
 	 * Mixins collection
 	 */
-	gApp.Mixins = gApp.Mixins === 'object' ? gApp.Mixins : {};
+	App.Mixins = typeof App.Mixins === 'object' ? App.Mixins : {};
 
 	/**
 	 * Permit to extend class by adding method and property setters
 	 * @mixin
 	 * @global
 	 */
-	gApp.Mixins.Extender = function () {
+	App.Mixins.Extender = function () {
 		var self = this;
 
 		/**
@@ -55,5 +55,5 @@
 		};
 	};
 
-	window.gApp = gApp;
+	window.gApp = App;
 }(window));

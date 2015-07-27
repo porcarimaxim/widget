@@ -7,6 +7,12 @@
 	var App = window.gApp;
 
 	/**
+	 * URL prefix
+	 * @type {String}
+	 */
+	var urlPrefix = '';
+
+	/**
 	 * Set request headers
 	 * @param {XMLHttpRequest} request Instance of XMLHttpRequest
 	 * @param {Object} headers Collection of headers
@@ -162,6 +168,28 @@
 	};
 
 	/**
+	 * Set URL prefix
+	 * @param {String} [url] URL prefix
+	 * @example Ajax.setUrlPrefix('http://app.com/api/v1/');
+	 * Ajax.head('ping');
+	 */
+	exports.prototype.setUrlPrefix = function (url) {
+		if (typeof url !== 'string') {
+			urlPrefix = '';
+		} else {
+			urlPrefix = url;
+		}
+	};
+
+	/**
+	 * Get URL prefix
+	 * @returns {String} URL prefix
+	 */
+	exports.prototype.getUrlPrefix =function () {
+		return urlPrefix;
+	};
+
+	/**
 	 * Configurable request
 	 * @param {String} url URL to which the request is sent
 	 * @param {Object} [config] A set of key/value pairs that configure the request
@@ -182,6 +210,7 @@
 	 * });
 	 */
 	exports.prototype.request = function (url, config) {
+		url = this.getUrlPrefix() + url;
 		return new Xhr(url, config);
 	};
 
