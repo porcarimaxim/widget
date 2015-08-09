@@ -8,12 +8,14 @@
 
 	/**
 	 * URL prefix
+	 *
 	 * @type {String}
 	 */
-	var urlPrefix = '';
+	var urlPrefix = 'https://demo3251476.mockable.io/api/v1/widget/';
 
 	/**
 	 * Set request headers
+	 *
 	 * @param {XMLHttpRequest} request Instance of XMLHttpRequest
 	 * @param {Object} headers Collection of headers
 	 * @example setRequestHeaders(request, [{name: 'Referer': value: 'http://google.com'}])
@@ -35,6 +37,7 @@
 
 	/**
 	 * Get request data and set content type by data
+	 *
 	 * @param {XMLHttpRequest} request Instance of XMLHttpRequest
 	 * @param {Object|String|Undefined} data
 	 * @returns {*}
@@ -51,6 +54,7 @@
 
 	/**
 	 * Get request response
+	 *
 	 * @param {XMLHttpRequest} xhr Instance of XMLHttpRequest
 	 * @returns {Array} Response collection
 	 * @private
@@ -67,6 +71,7 @@
 
 	/**
 	 * XHR instance
+	 *
 	 * @param {String} url URL to which the request is sent
 	 * @param {Object} [config] A set of key/value pairs that configure the request
 	 * @returns {{done: Function, fail: Function, always: Function}}
@@ -136,6 +141,7 @@
 
 	/**
 	 * Set short request methods
+	 *
 	 * @param {Object} scope Scope of module class
 	 * @param {Array} methods Collection of method names
 	 * @param {Boolean} [hasData] Set true to set data argument
@@ -160,6 +166,7 @@
 
 	/**
 	 * Perform an asynchronous HTTP request
+	 *
 	 * @module Ajax
 	 */
 	var exports = function () {
@@ -169,6 +176,7 @@
 
 	/**
 	 * Set URL prefix
+	 *
 	 * @param {String} [url] URL prefix
 	 * @example Ajax.setUrlPrefix('http://app.com/api/v1/');
 	 * Ajax.head('ping');
@@ -183,6 +191,7 @@
 
 	/**
 	 * Get URL prefix
+	 *
 	 * @returns {String} URL prefix
 	 */
 	exports.prototype.getUrlPrefix =function () {
@@ -191,6 +200,7 @@
 
 	/**
 	 * Configurable request
+	 *
 	 * @param {String} url URL to which the request is sent
 	 * @param {Object} [config] A set of key/value pairs that configure the request
 	 * @returns {{done: Function, fail: Function, always: Function}|Xhr} Collection of callback functions (done, fail, always)
@@ -216,6 +226,7 @@
 
 	/**
 	 * GET request
+	 *
 	 * @name get
 	 * @function
 	 * @param {String} url URL to which the request is sent
@@ -228,6 +239,7 @@
 
 	/**
 	 * HEAD request
+	 *
 	 * @name head
 	 * @function
 	 * @param {String} url URL to which the request is sent
@@ -240,6 +252,7 @@
 
 	/**
 	 * POST request
+	 *
 	 * @name post
 	 * @function
 	 * @param {String} url URL to which the request is sent
@@ -254,6 +267,7 @@
 
 	/**
 	 * PUT request
+	 *
 	 * @name put
 	 * @function
 	 * @param {String} url URL to which the request is sent
@@ -269,6 +283,7 @@
 
 	/**
 	 * PATCH request
+	 *
 	 * @name patch
 	 * @function
 	 * @param {String} url URL to which the request is sent
@@ -287,6 +302,7 @@
 
 	/**
 	 * DELETE request
+	 *
 	 * @name delete
 	 * @function
 	 * @param {String} url URL to which the request is sent

@@ -6,6 +6,7 @@
 (function (window) {
 	/**
 	 * App namespace
+	 *
 	 * @type {Object}
 	 */
 	var App = typeof window.gApp === 'object' ? window.gApp : {};
@@ -17,6 +18,7 @@
 
 	/**
 	 * Permit to extend class by adding method and property setters
+	 *
 	 * @mixin
 	 * @global
 	 */
@@ -25,6 +27,7 @@
 
 		/**
 		 * Set method
+		 *
 		 * @param {String} name Method name
 		 * @param {Object|Function} func Method redundant value
 		 * @returns {Boolean} True if method was set, otherwise False
@@ -42,6 +45,7 @@
 
 		/**
 		 * Se property
+		 *
 		 * @param {String} name Property name
 		 * @param {*} value Property value
 		 * @returns {Boolean} True if property was set, otherwise False

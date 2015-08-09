@@ -8,12 +8,14 @@
 
 	/**
 	 * Cache templates results
+	 *
 	 * @type {{}}
 	 */
 	var cache = {};
 
 	/**
 	 * Micro-templating module
+	 *
 	 * @param {String} str String used as template or word used as id to loads template from the innerHTML of the element
 	 * @param {Object} data Data used to render the template
 	 * @returns {String|Boolean}

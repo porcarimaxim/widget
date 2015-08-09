@@ -8,6 +8,7 @@
 
 	/**
 	 * Settings collection
+	 *
 	 * @type {Object}
 	 * @private
 	 */
@@ -15,6 +16,7 @@
 
 	/**
 	 * Count settings
+	 *
 	 * @returns {Number} Number of settings
 	 * @private
 	 */
@@ -32,6 +34,7 @@
 
 	/**
 	 * Set and get setting values
+	 *
 	 * @module Setting
 	 */
 	var exports = function () {
@@ -39,6 +42,7 @@
 
 	/**
 	 * Set one setting or collection of settings
+	 *
 	 * @param {String|Object} name Setting name
 	 * @param {*} [value] Setting value
 	 * @returns {Boolean|number} Number of successful saved settings, otherwise False
@@ -70,6 +74,7 @@
 
 	/**
 	 * Get setting value
+	 *
 	 * @param {string} name Setting name
 	 * @param {*} [def] Default value that will be returned if called setting not exists
 	 * @returns {*} Setting value or default value if setting not exists, otherwise False
@@ -78,7 +83,7 @@
 	exports.prototype.get = function (name, def) {
 		if ((name in settings)) {
 			return settings[name];
-		} else if (def) {
+		} else if (typeof def !== 'undefined') {
 			return def;
 		}
 
@@ -87,6 +92,7 @@
 
 	/**
 	 * Get all settings
+	 *
 	 * @returns {Object|Boolean} All settings or False if no one setting exists
 	 * @example var settings = Setting.getAll();
 	 */
@@ -96,6 +102,7 @@
 
 	/**
 	 * Remove setting
+	 *
 	 * @param {string} name Setting name
 	 * @returns {Boolean} True if setting was deleted, False otherwise
 	 * @example Setting.remove('clientId');
@@ -110,6 +117,7 @@
 
 	/**
 	 * Remove all settings
+	 *
 	 * @example Setting.removeAll();
 	 */
 	exports.prototype.removeAll = function () {

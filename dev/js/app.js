@@ -26,13 +26,6 @@
 	var clientId = typeof gApp.clientId !== 'undefined' ? gApp.clientId : false;
 
 	/**
-	 * API URL address
-	 * @type {string}
-	 * @private
-	 */
-	var apiURL = 'https://demo3251476.mockable.io/api/v1/';
-
-	/**
 	 * App
 	 * @class
 	 * @global
@@ -56,11 +49,21 @@
 	};
 
 	/**
-	 * Method is called when application is fully loaded
+	 * Setup widget
+	 * @param {String} clientId Client unique id
+	 * @example App.setup(1234)
 	 */
-	App.prototype.isReady = function () {
-		this.Ajax.setUrlPrefix(apiURL);
-		this.Setting.set('clientId', clientId);
+	App.prototype.setup = function (clientId) {
+		var self = this;
+		if (typeof clientId === 'undefined') {
+			return false;
+		}
+
+		self.Event.fire('appSetup', {
+			clientId: clientId
+		});
+
+		return true;
 	};
 
 	/**

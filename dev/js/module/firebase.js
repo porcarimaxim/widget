@@ -8,17 +8,20 @@
 
 	/**
 	 * Firebase account
+	 *
 	 * @type {String}
 	 */
 	var account,
 		/**
 		 * Firebase instance
+		 *
 		 * @type {Boolean|Firebase}
 		 */
 		instance = false;
 
 	/**
 	 * Manage firebase instance
+	 *
 	 * @module Firebase
 	 * @see https://www.firebase.com/docs/web/api/
 	 */
@@ -27,8 +30,9 @@
 
 	/**
 	 * Set firebase account and initialise connection
+	 *
 	 * @param name Firebase application name
-	 * @returns {Boolean} True if application name is valid, False otherwise
+	 * @returns {Boolean} Firebase instance if application name is valid, False otherwise
 	 */
 	exports.prototype.set = function (name) {
 		if (typeof name !== 'string') {
@@ -36,11 +40,12 @@
 		}
 		account = name;
 		instance = new Firebase('https://' + name + '.firebaseio.com');
-		return true;
+		return instance;
 	};
 
 	/**
 	 * Get firebase instance
+	 *
 	 * @returns {Boolean|Firebase} Firebase instance or False if instance is not initialised
 	 */
 	exports.prototype.get = function () {

@@ -8,12 +8,14 @@
 
 	/**
 	 * Number or request permitted to sent via ajax
+	 *
 	 * @type {number}
 	 * @private
 	 */
 	var requestLimit = 3,
 		/**
 		 * Increment of increment request limit
+		 *
 		 * @type {number}
 		 * @private
 		 */
@@ -21,6 +23,7 @@
 
 	/**
 	 * Send log action to server
+	 *
 	 * @param {Object|String} message Log message
 	 * @param {String|Null} type Log type
 	 * @returns {Boolean} True if request was sent, False otherwise
@@ -51,6 +54,7 @@
 
 	/**
 	 * Get additional data about log action
+	 *
 	 * @param {String} message Log message
 	 * @param {String} [type] Log type
 	 * @returns {String} JSON with additional log action data
@@ -71,6 +75,7 @@
 
 	/**
 	 * Start request limit incremental
+	 *
 	 * @private
 	 */
 	var startRequestIncrement = function () {
@@ -79,6 +84,7 @@
 
 	/**
 	 * Request limit incremental callback
+	 *
 	 * @callback
 	 * @private
 	 */
@@ -90,6 +96,7 @@
 
 	/**
 	 * Outputs a message to the web console and/or send it web server
+	 *
 	 * @module Log
 	 */
 	var exports = function () {
@@ -98,6 +105,7 @@
 
 	/**
 	 * Log action
+	 *
 	 * @param {String} message Log message
 	 * @param {String} [type] Log type
 	 * @param {Boolean} [send] Set True to send log data to server
@@ -122,7 +130,6 @@
 
 		return done;
 	};
-
 
 	App.setProperty('Log', new exports);
 })(window);

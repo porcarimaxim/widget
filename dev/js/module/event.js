@@ -8,12 +8,14 @@
 
 	/**
 	 * Abstract dom element used like an private event bus
+	 *
 	 * @type {HTMLElement}
 	 * @private
 	 */
 	var eventEl = window.document.createElement('div'),
 		/**
 		 * Events arguments collection used for events manipulation
+		 *
 		 * @type {Array}
 		 * @private
 		 */
@@ -21,6 +23,7 @@
 
 	/**
 	 * Get event name by id
+	 *
 	 * @param {Number} id Event id
 	 * @returns {String|Boolean} Event name or False if event not exists
 	 * @private
@@ -34,6 +37,7 @@
 
 	/**
 	 * Checks if event name exists
+	 *
 	 * @param {String} name Event name
 	 * @returns {Boolean} True if event name exists, otherwise False
 	 * @private
@@ -53,6 +57,7 @@
 
 	/**
 	 * Manage private events
+	 *
 	 * @module Event
 	 */
 	var exports = function () {
@@ -60,6 +65,7 @@
 
 	/**
 	 * Fire one added event by name or id
+	 *
 	 * @param {String|Number} name Event name
 	 * @param {String} [data] Optional event data
 	 * @returns {Boolean} True if event fired, False otherwise
@@ -92,6 +98,7 @@
 
 	/**
 	 * Add event
+	 *
 	 * @param {String} type Event name
 	 * @param {Function} func Event listener
 	 * @param {Boolean} [capture] Event capture
@@ -112,6 +119,7 @@
 
 	/**
 	 * Remove event by arguments or id
+	 *
 	 * @param {String|Number} type Event name
 	 * @param {Function} [func] Event listener
 	 * @param {Boolean} [capture] Event capture

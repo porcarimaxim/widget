@@ -1,16 +1,17 @@
 'use strict';
 
 /**
- * @fileOverview Ajax module
+ * @fileOverview Button view
  */
 (function (window) {
 	var App = window.gApp;
 
 	/**
+	 * Create element with class
 	 *
-	 * @param tag
-	 * @param classes
-	 * @returns {HTMLElement}
+	 * @param {String} tag Tag name
+	 * @param {String} classes CSS classes
+	 * @returns {HTMLElement} Dom element
 	 */
 	var createElementWithClass = function (tag, classes) {
 		var el = window.document.createElement(tag);
@@ -31,20 +32,10 @@
 
 	bodyEl.appendChild(buttonEl);
 
-
-	/**
-	 * Manage button
-	 * @module Button
-	 */
-	var exports = function () {
-		App.Event.add('showButton', function () {
-			buttonEl.className = 'button show';
-		});
-		App.Event.add('hideButton', function () {
-			buttonEl.className = 'button';
-		});
-	};
-
-
-	App.setProperty('Button', new exports);
+	App.Event.add('showButton', function () {
+		buttonEl.className = 'button show';
+	});
+	App.Event.add('hideButton', function () {
+		buttonEl.className = 'button';
+	});
 })(window);

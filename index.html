@@ -16,12 +16,6 @@
 
 <h2>Call me back</h2>
 
-<script type="text/javascript">
-	gApp = {
-		clientId: 1234
-	};
-</script>
-
 <script type="text/javascript" src="dev/js/dependency/firebase.min.js"></script>
 
 <script type="text/javascript" src="dev/js/mixin/extender.js"></script>
@@ -34,11 +28,16 @@
 <script type="text/javascript" src="dev/js/module/setting.js"></script>
 <script type="text/javascript" src="dev/js/module/firebase.js"></script>
 <script type="text/javascript" src="dev/js/module/tpl.js"></script>
-<script type="text/javascript" src="dev/js/module/button.js"></script>
 
-<script type="text/javascript" src="dev/js/ready.js"></script>
+<script type="text/javascript" src="dev/js/view/button.js"></script>
+
+<script type="text/javascript" src="dev/js/controller/setup.js"></script>
 
 <script type="text/javascript" src="//localhost:35729/livereload.js"></script>
+
+<script type="text/javascript">
+	gApp.setup(1324);
+</script>
 
 </body>
 </html>
