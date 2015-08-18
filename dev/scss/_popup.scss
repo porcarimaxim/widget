@@ -1,0 +1,9 @@
+div.cmb-container {
+  div.popup {
+	display: none;
+
+	&.show {
+	  display: block;
+	}
+  }
+}

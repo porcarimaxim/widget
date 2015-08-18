@@ -6,36 +6,32 @@
 (function (window) {
 	var App = window.gApp;
 
-	/**
-	 * Create element with class
-	 *
-	 * @param {String} tag Tag name
-	 * @param {String} classes CSS classes
-	 * @returns {HTMLElement} Dom element
-	 */
-	var createElementWithClass = function (tag, classes) {
-		var el = window.document.createElement(tag);
-		el.className = classes;
-		return el;
-	};
+	var containerEl = window.document.getElementById('cmbContainer'),
+		buttonEl = window.document.createElement('div');
 
-	var bodyEl = window.document.body;
+	buttonEl.className = 'button';
+	buttonEl.id = 'cmbButton';
 
-	var buttonEl = createElementWithClass('div', 'button'),
-		circleEl = createElementWithClass('div', 'circle'),
-		waveEl = createElementWithClass('div', 'wave'),
-		imageEl = createElementWithClass('div', 'image');
+	var html = '', key, value,
+		classes = ['circle', 'wave', 'image'];
+	for (key in classes) {
+		if (classes.hasOwnProperty(key)) {
+			value = classes[key];
+			html += '<div class="' + value + '"></div>';
+		}
+	}
+	buttonEl.innerHTML = html;
 
-	buttonEl.appendChild(circleEl);
-	buttonEl.appendChild(waveEl);
-	buttonEl.appendChild(imageEl);
+	buttonEl.addEventListener('click', function() {
+		App.Event.fire('buttonClick');
+	}, false);
 
-	bodyEl.appendChild(buttonEl);
+	containerEl.appendChild(buttonEl);
 
-	App.Event.add('showButton', function () {
-		buttonEl.className = 'button show';
+	App.Event.add('buttonAvailable', function () {
+		buttonEl.className = 'button available';
 	});
-	App.Event.add('hideButton', function () {
-		buttonEl.className = 'button';
+	App.Event.add('buttonUnavailable', function () {
+		buttonEl.className = 'button unavailable';
 	});
 })(window);

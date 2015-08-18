@@ -28,11 +28,15 @@
 			var value = data.val();
 
 			if (value > 0) {
-				App.Event.fire('showButton');
+				App.Event.fire('buttonAvailable');
 			} else {
-				App.Event.fire('hideButton');
+				App.Event.fire('buttonUnavailable');
 			}
 		};
+
+		App.Event.add('buttonClick', function() {
+			App.Event.fire('popupShow');
+		});
 	};
 
 	App.Event.add('appSetup', eventSetup);
