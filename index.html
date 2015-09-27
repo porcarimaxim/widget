@@ -8,7 +8,7 @@
 			background-color: #aaa;
 		}
 	</style>
-	<link rel="stylesheet" href="dev/css/style.css">
+	<link rel="stylesheet" href="lib/dev/css/style.css">
 </head>
 <body>
 
@@ -16,30 +16,41 @@
 
 <h2>Call me back</h2>
 
-<script type="text/javascript" src="dev/js/dependency/firebase.min.js"></script>
 
-<script type="text/javascript" src="dev/js/mixin/extender.js"></script>
+<!-- Load firebase -->
+<script type="text/javascript" src="lib/dev/js/dependency/firebase.min.js"></script>
 
-<script type="text/javascript" src="dev/js/app.js"></script>
+<!-- Load mixins -->
+<script type="text/javascript" src="lib/dev/js/mixin/extender.js"></script>
 
-<script type="text/javascript" src="dev/js/module/ajax.js"></script>
-<script type="text/javascript" src="dev/js/module/log.js"></script>
-<script type="text/javascript" src="dev/js/module/event.js"></script>
-<script type="text/javascript" src="dev/js/module/setting.js"></script>
-<script type="text/javascript" src="dev/js/module/firebase.js"></script>
-<script type="text/javascript" src="dev/js/module/tpl.js"></script>
+<!-- Load app -->
+<script type="text/javascript" src="lib/dev/js/app.js"></script>
 
-<script type="text/javascript" src="dev/js/view/container.js"></script>
-<script type="text/javascript" src="dev/js/view/button.js"></script>
-<script type="text/javascript" src="dev/js/view/popup.js"></script>
+<!-- Load modules -->
+<script type="text/javascript" src="lib/dev/js/module/ajax.js"></script>
+<script type="text/javascript" src="lib/dev/js/module/log.js"></script>
+<script type="text/javascript" src="lib/dev/js/module/event.js"></script>
+<script type="text/javascript" src="lib/dev/js/module/setting.js"></script>
+<script type="text/javascript" src="lib/dev/js/module/firebase.js"></script>
+<script type="text/javascript" src="lib/dev/js/module/tpl.js"></script>
 
-<script type="text/javascript" src="dev/js/controller/setup.js"></script>
+<!-- Load views -->
+<script type="text/javascript" src="lib/dev/js/view/container.js"></script>
+<script type="text/javascript" src="lib/dev/js/view/button.js"></script>
+<script type="text/javascript" src="lib/dev/js/view/popup.js"></script>
 
+<!-- Load setup -->
+<script type="text/javascript" src="lib/dev/js/controller/setup.js"></script>
+
+<!-- Load livereload -->
 <script type="text/javascript" src="//localhost:35729/livereload.js"></script>
 
+<!-- Initialise app -->
 <script type="text/javascript">
 	gApp.setup(1324);
 </script>
+
+
 
 </body>
 </html>

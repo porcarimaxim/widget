@@ -13,14 +13,14 @@ module.exports = function (grunt) {
 		 */
 		watch: {
 			scss: {
-				files: 'dev/scss/*.scss',
+				files: 'lib/dev/scss/*.scss',
 				tasks: ['compass:dev']
 			},
 			html: {
 				files: 'index.html'
 			},
 			js: {
-				files: 'dev/js/**/*.js'
+				files: 'lib/dev/js/**/*.js'
 			},
 			options: {
 				livereload: true
@@ -33,21 +33,58 @@ module.exports = function (grunt) {
 		compass: {
 			dev: {
 				options: {
-					sassDir: 'dev/scss',
-					cssDir: 'dev/css',
-					imagesDir: 'dev/img',
+					sassDir: 'lib/dev/scss',
+					cssDir: 'lib/dev/css',
+					imagesDir: 'lib/dev/img',
 					httpPath: '/',
 					environment: 'development'
 				}
 			},
 			prod: {
 				options: {
-					sassDir: 'dev/scss',
-					cssDir: 'prod',
-					imagesDir: 'dev/img',
+					sassDir: 'lib/dev/scss',
+					cssDir: 'lib/prod',
+					imagesDir: 'lib/dev/img',
 					httpPath: '/',
 					environment: 'production'
 				}
+			}
+		},
+
+		/**
+		 * Uglifyjs
+		 */
+		uglify: {
+			prod: {
+				files: {
+					'lib/prod/app.js': [
+						'lib/dev/js/mixin/extender.js',
+						'lib/dev/js/app.js',
+						'lib/dev/js/module/ajax.js',
+						'lib/dev/js/module/log.js',
+						'lib/dev/js/module/event.js',
+						'lib/dev/js/module/setting.js',
+						'lib/dev/js/module/firebase.js',
+						'lib/dev/js/module/tpl.js',
+						'lib/dev/js/view/container.js',
+						'lib/dev/js/view/button.js',
+						'lib/dev/js/view/popup.js',
+						'lib/dev/js/controller/setup.js'
+					]
+				}
+			}
+		},
+
+		/**
+		 * Concat
+		 */
+		concat: {
+			prod: {
+				src: [
+					'lib/dev/js/dependency/firebase.min.js',
+					'lib/prod/app.js'
+				],
+				dest: 'lib/prod/app.js'
 			}
 		},
 
@@ -57,7 +94,7 @@ module.exports = function (grunt) {
 		jsdoc: {
 			dev: {
 				jsdoc: 'node_modules/.bin/jsdoc.cmd',
-				src: ['dev/js/**/*.js'],
+				src: ['lib/dev/js/**/*.js'],
 				dest: 'doc'
 			}
 		}
@@ -70,7 +107,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-jsdoc');
 
 	grunt.registerTask('dev', ['compass:dev']);
-	grunt.registerTask('prod', ['compass:prod']);
+	grunt.registerTask('prod', ['compass:prod', 'uglify:prod', 'concat:prod']);
 	grunt.registerTask('live', ['watch']);
 	grunt.registerTask('doc', ['jsdoc']);
 
