@@ -1,9 +1,129 @@
-div.cmb-container {
-  div.popup {
-	display: none;
+@import "variables";
+@import "mixins";
 
-	&.show {
-	  display: block;
+// Container
+.#{$ns}-container {
+
+  // Popup
+  .#{$ns}-popup {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	background-color: rgba(255, 255, 255, 0.9);
+	width: 90%;
+	height: 200px;
+	@include z-index(2);
+	@include border-radius(10px);
+	@include responsive(desktop) {
+	  width: 40%;
 	}
+
+	// Content
+	.#{$ns}-container {
+	  position: relative;
+	  margin: 10px;
+
+	  // Form container
+	  .#{$ns}-form {
+		padding: 20px;
+
+		// Label
+		.#{$ns}-label {
+		  font: {
+			size: 16px;
+			weight: bold;
+		  }
+		  text-align: left;
+		  margin-bottom: 20px;
+		}
+
+		// Input container
+		.#{$ns}-input {
+		  // Input
+		  .#{$ns}-text-input {
+			@include box-sizing;
+			@include border-radius(5px);
+			outline: 0;
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 20px;
+			border: solid 1px #AAA;
+		  }
+		}
+
+		// Row
+		.#{$ns}-row {
+		  &:after {
+			clear: both;
+		  }
+
+		  // Button column
+		  .#{$ns}-button-column {
+			display: inline-block;
+			float: right;
+
+			// Button
+			.#{$ns}-button-input {
+			  @include box-sizing;
+			  @include border-radius(5px);
+			  @include transition(0.25s ease-out);
+			  text-align: center;
+			  color: #FFF;
+			  border: 0;
+			  outline: 0;
+			  padding: 10px 20px;
+			  cursor: pointer;
+			  background-color: #333;
+			  &:hover {
+				background-color: #52AFF7;
+			  }
+			}
+		  }
+
+		  // Timer column
+		  .#{$ns}-timer-column {
+			display: inline-block;
+			float: left;
+			font: {
+			  size: 20px;
+			  weight: bold;
+			}
+			line-height: 35px;
+		  }
+
+		}
+
+	  }
+
+	  // Close button
+	  .#{$ns}-close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		color: #AAA;
+		font-weight: bold;
+		&:before {
+		  content: '\2716';
+		}
+		&:hover {
+		  color: #333;
+		}
+		@include transition(0.3s ease-out);
+	  }
+	}
+  }
+
+  // Mask
+  .#{$ns}-mask {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	width: 100%;
+	height: 100%;
+	@include z-index(1);
   }
 }

@@ -1,3 +1,9 @@
+/* line 4, ../scss/_container.scss */
+.cmb-container {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #444;
+}
+
 /* line 2, ../scss/_button.scss */
 div.cmb-container div.button {
   position: fixed;
@@ -61,11 +67,129 @@ div.cmb-container div.button div.wave {
     transform: rotate(0deg) scale(1) skew(1deg);
   }
 }
-/* line 2, ../scss/_popup.scss */
-div.cmb-container div.popup {
-  display: none;
+/* line 8, ../scss/_popup.scss */
+.cmb-container .cmb-popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 90%;
+  height: 200px;
+  z-index: 1002;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
 }
-/* line 5, ../scss/_popup.scss */
-div.cmb-container div.popup.show {
-  display: block;
+@media only screen and (min-width: 1000px) {
+  /* line 8, ../scss/_popup.scss */
+  .cmb-container .cmb-popup {
+    width: 40%;
+  }
+}
+/* line 25, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-container {
+  position: relative;
+  margin: 10px;
+}
+/* line 30, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-container .cmb-form {
+  padding: 20px;
+}
+/* line 34, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-container .cmb-form .cmb-label {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 20px;
+}
+/* line 46, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-container .cmb-form .cmb-input .cmb-text-input {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  outline: 0;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: solid 1px #AAA;
+}
+/* line 59, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-container .cmb-form .cmb-row:after {
+  clear: both;
+}
+/* line 64, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-container .cmb-form .cmb-row .cmb-button-column {
+  display: inline-block;
+  float: right;
+}
+/* line 69, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-container .cmb-form .cmb-row .cmb-button-column .cmb-button-input {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  -moz-transition: 0.25s ease-out;
+  -o-transition: 0.25s ease-out;
+  -webkit-transition: 0.25s ease-out;
+  transition: 0.25s ease-out;
+  text-align: center;
+  color: #FFF;
+  border: 0;
+  outline: 0;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #333;
+}
+/* line 80, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-container .cmb-form .cmb-row .cmb-button-column .cmb-button-input:hover {
+  background-color: #52AFF7;
+}
+/* line 87, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-container .cmb-form .cmb-row .cmb-timer-column {
+  display: inline-block;
+  float: left;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 35px;
+}
+/* line 102, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-container .cmb-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #AAA;
+  font-weight: bold;
+  -moz-transition: 0.3s ease-out;
+  -o-transition: 0.3s ease-out;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+}
+/* line 108, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-container .cmb-close:before {
+  content: '\2716';
+}
+/* line 111, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-container .cmb-close:hover {
+  color: #333;
+}
+/* line 120, ../scss/_popup.scss */
+.cmb-container .cmb-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  z-index: 1001;
 }

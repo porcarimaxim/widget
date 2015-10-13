@@ -1,0 +1,43 @@
+// Apply high z-index
+@mixin z-index($number) {
+  z-index: $z-index + $number;
+}
+
+// Box-sizing
+@mixin box-sizing() {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+// Border-radius
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// Transition
+@mixin transition($transition...) {
+  -moz-transition:    $transition;
+  -o-transition:      $transition;
+  -webkit-transition: $transition;
+  transition:         $transition;
+}
+
+// Responsive
+@mixin responsive($media) {
+  @if $media == mobile {
+    @media only screen and (max-width: 400px) { @content; }
+  }
+  @else if $media == phablet {
+    @media only screen and (min-width: 550px) { @content; }
+  }
+  @else if $media == tablet {
+    @media only screen and (min-width: 750px) { @content; }
+  }
+  @else if $media == desktop {
+    @media only screen and (min-width: 1000px) { @content; }
+  }
+}

@@ -17,7 +17,10 @@ module.exports = function (grunt) {
 				tasks: ['compass:dev']
 			},
 			html: {
-				files: 'index.html'
+				files: [
+					'index.html',
+					'lib/dev/html/*.html'
+				]
 			},
 			js: {
 				files: 'lib/dev/js/**/*.js'
