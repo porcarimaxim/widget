@@ -1,7 +1,24 @@
-// Widget namespace
+// Namespace
 $ns: 'cmb';
 
 // Z-index start number
 $z-index: 1000;
 
 // Colors
+$color-white: #FFF;
+$color-black: #000;
+$color-jet: #444;
+$color-gray: #888;
+$color-blue-light: #52AFF7;
+$color-blue-dark: #007095;
+
+// Fonts
+$font-family-light: 'Segoe UI Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-normal: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-bold: 'Segoe UI Bold', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+// Responsive
+$media-mobile: 400px;
+$media-phablet: 550px;
+$media-tablet: 750px;
+$media-desktop: 1000px;

@@ -1,13 +1,15 @@
+@import "variables";
+
 // Apply high z-index
 @mixin z-index($number) {
   z-index: $z-index + $number;
 }
 
 // Box-sizing
-@mixin box-sizing() {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+@mixin box-sizing($type: 'border-box') {
+  -webkit-box-sizing: #{$type};
+  -moz-box-sizing: #{$type};
+  box-sizing: #{$type};
 }
 
 // Border-radius
@@ -20,24 +22,65 @@
 
 // Transition
 @mixin transition($transition...) {
-  -moz-transition:    $transition;
-  -o-transition:      $transition;
+  -moz-transition: $transition;
+  -o-transition: $transition;
   -webkit-transition: $transition;
-  transition:         $transition;
+  transition: $transition;
 }
 
 // Responsive
 @mixin responsive($media) {
   @if $media == mobile {
-    @media only screen and (max-width: 400px) { @content; }
+	@media only screen and (max-width: $media-mobile) {
+	  @content;
+	}
+  } @else if $media == phablet {
+	@media only screen and (min-width: $media-phablet) and (max-width: $media-tablet) {
+	  @content;
+	}
+  } @else if $media == phablet-up {
+	@media only screen and (min-width: $media-phablet) {
+	  @content;
+	}
+  } @else if $media == tablet {
+	@media only screen and (min-width: $media-tablet) and (max-width: $media-desktop) {
+	  @content;
+	}
+  } @else if $media == tablet-up {
+	@media only screen and (min-width: $media-tablet) {
+	  @content;
+	}
+  } @else if $media == desktop {
+	@media only screen and (min-width: $media-desktop) {
+	  @content;
+	}
   }
-  @else if $media == phablet {
-    @media only screen and (min-width: 550px) { @content; }
+}
+
+// Keyframes
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+	@content;
   }
-  @else if $media == tablet {
-    @media only screen and (min-width: 750px) { @content; }
+  @-moz-keyframes #{$name} {
+	@content;
   }
-  @else if $media == desktop {
-    @media only screen and (min-width: 1000px) { @content; }
+  @-ms-keyframes #{$name} {
+	@content;
   }
+  @-o-keyframes #{$name} {
+	@content;
+  }
+  @keyframes #{$name} {
+	@content;
+  }
+}
+
+// Animation
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
 }

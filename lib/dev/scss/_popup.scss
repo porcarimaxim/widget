@@ -7,22 +7,27 @@
   // Popup
   .#{$ns}-popup {
 	position: fixed;
-	top: 0;
+	top: 35%;
 	right: 0;
-	bottom: 0;
 	left: 0;
 	margin: auto;
-	background-color: rgba(255, 255, 255, 0.9);
 	width: 90%;
-	height: 200px;
+	background-color: transparentize($color-white, 0.1);
 	@include z-index(2);
 	@include border-radius(10px);
+
+	@include responsive(phablet) {
+	  width: 80%;
+	}
+	@include responsive(tablet) {
+	  width: 70%;
+	}
 	@include responsive(desktop) {
-	  width: 40%;
+	  width: 700px;
 	}
 
 	// Content
-	.#{$ns}-container {
+	.#{$ns}-body {
 	  position: relative;
 	  margin: 10px;
 
@@ -32,30 +37,44 @@
 
 		// Label
 		.#{$ns}-label {
-		  font: {
-			size: 16px;
-			weight: bold;
+		  padding-bottom: 20px;
+		  font-size: 16px;
+		  font-weight: bold;
+		  text-align: center;
+
+		  @include responsive(phablet) {
+			font-size: 20px;
 		  }
-		  text-align: left;
-		  margin-bottom: 20px;
+		  @include responsive(tablet-up) {
+			.#{$ns}-title, .#{$ns}-subtitle {
+			  display: inline-block;
+			}
+			font-size: 20px;
+		  }
+		  @include responsive(desktop) {
+			font-size: 21px;
+		  }
 		}
 
 		// Input container
 		.#{$ns}-input {
+		  padding-bottom: 20px;
+
 		  // Input
 		  .#{$ns}-text-input {
 			@include box-sizing;
 			@include border-radius(5px);
+			font-family: $font-family-normal;
 			outline: 0;
 			width: 100%;
 			padding: 10px;
-			margin-bottom: 20px;
-			border: solid 1px #AAA;
+			border: solid 1px $color-gray;
 		  }
 		}
 
 		// Row
 		.#{$ns}-row {
+		  overflow: hidden;
 		  &:after {
 			clear: both;
 		  }
@@ -70,15 +89,20 @@
 			  @include box-sizing;
 			  @include border-radius(5px);
 			  @include transition(0.25s ease-out);
-			  text-align: center;
-			  color: #FFF;
-			  border: 0;
+			  border: solid 1px $color-blue-light;
 			  outline: 0;
-			  padding: 10px 20px;
+			  padding: 10px 25px;
 			  cursor: pointer;
-			  background-color: #333;
+			  font-family: $font-family-bold;
+			  text-align: center;
+			  color: $color-white;
+			  background-color: $color-blue-light;
 			  &:hover {
-				background-color: #52AFF7;
+				border: solid 1px $color-blue-dark;
+				background-color: $color-blue-dark;
+			  }
+			  &:active {
+				border: solid 1px $color-blue-light;
 			  }
 			}
 		  }
@@ -87,11 +111,11 @@
 		  .#{$ns}-timer-column {
 			display: inline-block;
 			float: left;
-			font: {
-			  size: 20px;
-			  weight: bold;
-			}
 			line-height: 35px;
+			font-size: 20px;
+			@include responsive(desktop) {
+			  font-size: 26px;
+			}
 		  }
 
 		}
@@ -103,7 +127,7 @@
 		position: absolute;
 		top: 0;
 		right: 0;
-		color: #AAA;
+		color: $color-gray;
 		font-weight: bold;
 		&:before {
 		  content: '\2716';
@@ -121,7 +145,7 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: transparentize($color-black, 0.6);
 	width: 100%;
 	height: 100%;
 	@include z-index(1);
