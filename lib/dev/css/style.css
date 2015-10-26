@@ -117,6 +117,7 @@
 .cmb-container {
   font-family: 'Segoe UI Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #444;
+  line-height: 100%;
 }
 
 /* line 8, ../scss/_button.scss */
@@ -219,6 +220,7 @@
 .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-label {
   padding-bottom: 20px;
   font-size: 16px;
+  line-height: 20px;
   font-weight: bold;
   text-align: center;
 }
@@ -233,7 +235,7 @@
   .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-label {
     font-size: 20px;
   }
-  /* line 54, ../scss/_popup.scss */
+  /* line 55, ../scss/_popup.scss */
   .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-label .cmb-title, .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-label .cmb-subtitle {
     display: inline-block;
   }
@@ -244,12 +246,26 @@
     font-size: 21px;
   }
 }
-/* line 65, ../scss/_popup.scss */
-.cmb-container .cmb-popup .cmb-body .cmb-form .cmb-input {
+/* line 66, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-body .cmb-form .cmb-input-group {
+  white-space: nowrap;
+}
+/* line 70, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-body .cmb-form .cmb-input-group .cmb-input-phone,
+.cmb-container .cmb-popup .cmb-body .cmb-form .cmb-input-group .cmb-input-name {
   padding-bottom: 20px;
 }
-/* line 69, ../scss/_popup.scss */
-.cmb-container .cmb-popup .cmb-body .cmb-form .cmb-input .cmb-text-input {
+@media only screen and (min-width: 1000px) {
+  /* line 70, ../scss/_popup.scss */
+  .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-input-group .cmb-input-phone,
+  .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-input-group .cmb-input-name {
+    display: inline-block;
+    width: 48%;
+  }
+}
+/* line 80, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-body .cmb-form .cmb-input-group .cmb-input-phone .cmb-text-input,
+.cmb-container .cmb-popup .cmb-body .cmb-form .cmb-input-group .cmb-input-name .cmb-text-input {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -263,20 +279,36 @@
   padding: 10px;
   border: solid 1px #888;
 }
-/* line 81, ../scss/_popup.scss */
+/* line 89, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-body .cmb-form .cmb-input-group .cmb-input-phone .cmb-input-error,
+.cmb-container .cmb-popup .cmb-body .cmb-form .cmb-input-group .cmb-input-name .cmb-input-error {
+  border-color: #F00;
+}
+/* line 93, ../scss/_popup.scss */
+.cmb-container .cmb-popup .cmb-body .cmb-form .cmb-input-group .cmb-input-separator {
+  display: none;
+}
+@media only screen and (min-width: 1000px) {
+  /* line 93, ../scss/_popup.scss */
+  .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-input-group .cmb-input-separator {
+    display: inline-block;
+    width: 4%;
+  }
+}
+/* line 103, ../scss/_popup.scss */
 .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-row {
   overflow: hidden;
 }
-/* line 83, ../scss/_popup.scss */
+/* line 105, ../scss/_popup.scss */
 .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-row:after {
   clear: both;
 }
-/* line 88, ../scss/_popup.scss */
+/* line 110, ../scss/_popup.scss */
 .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-row .cmb-button-column {
   display: inline-block;
   float: right;
 }
-/* line 93, ../scss/_popup.scss */
+/* line 115, ../scss/_popup.scss */
 .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-row .cmb-button-column .cmb-button-input {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -298,16 +330,16 @@
   color: #FFF;
   background-color: #52AFF7;
 }
-/* line 105, ../scss/_popup.scss */
+/* line 127, ../scss/_popup.scss */
 .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-row .cmb-button-column .cmb-button-input:hover {
   border: solid 1px #007095;
   background-color: #007095;
 }
-/* line 109, ../scss/_popup.scss */
+/* line 131, ../scss/_popup.scss */
 .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-row .cmb-button-column .cmb-button-input:active {
   border: solid 1px #52AFF7;
 }
-/* line 116, ../scss/_popup.scss */
+/* line 138, ../scss/_popup.scss */
 .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-row .cmb-timer-column {
   display: inline-block;
   float: left;
@@ -315,12 +347,12 @@
   font-size: 20px;
 }
 @media only screen and (min-width: 1000px) {
-  /* line 116, ../scss/_popup.scss */
+  /* line 138, ../scss/_popup.scss */
   .cmb-container .cmb-popup .cmb-body .cmb-form .cmb-row .cmb-timer-column {
     font-size: 26px;
   }
 }
-/* line 131, ../scss/_popup.scss */
+/* line 153, ../scss/_popup.scss */
 .cmb-container .cmb-popup .cmb-body .cmb-close {
   position: absolute;
   top: 0;
@@ -332,15 +364,15 @@
   -webkit-transition: 0.3s ease-out;
   transition: 0.3s ease-out;
 }
-/* line 137, ../scss/_popup.scss */
+/* line 159, ../scss/_popup.scss */
 .cmb-container .cmb-popup .cmb-body .cmb-close:before {
   content: '\2716';
 }
-/* line 140, ../scss/_popup.scss */
+/* line 162, ../scss/_popup.scss */
 .cmb-container .cmb-popup .cmb-body .cmb-close:hover {
   color: #333;
 }
-/* line 149, ../scss/_popup.scss */
+/* line 171, ../scss/_popup.scss */
 .cmb-container .cmb-mask {
   position: fixed;
   top: 0;

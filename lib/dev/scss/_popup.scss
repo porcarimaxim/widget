@@ -44,6 +44,7 @@
 		.#{$ns}-label {
 		  padding-bottom: 20px;
 		  font-size: 16px;
+		  line-height: 20px;
 		  font-weight: bold;
 		  text-align: center;
 
@@ -61,19 +62,40 @@
 		  }
 		}
 
-		// Input container
-		.#{$ns}-input {
-		  padding-bottom: 20px;
+		// Input body
+		.#{$ns}-input-group {
+		  white-space: nowrap;
 
-		  // Input
-		  .#{$ns}-text-input {
-			@include box-sizing;
-			@include border-radius(5px);
-			font-family: $font-family-normal;
-			outline: 0;
-			width: 100%;
-			padding: 10px;
-			border: solid 1px $color-gray;
+		  // Input container
+		  .#{$ns}-input-phone,
+		  .#{$ns}-input-name {
+			padding-bottom: 20px;
+
+			@include responsive(desktop) {
+			  display: inline-block;
+			  width: 48%;
+			}
+
+			// Input
+			.#{$ns}-text-input {
+			  @include box-sizing;
+			  @include border-radius(5px);
+			  font-family: $font-family-normal;
+			  outline: 0;
+			  width: 100%;
+			  padding: 10px;
+			  border: solid 1px $color-gray;
+			}
+			.#{$ns}-input-error {
+			  border-color: $color-red;
+			}
+		  }
+		  .#{$ns}-input-separator {
+			display: none;
+			@include responsive(desktop) {
+			  display: inline-block;
+			  width: 4%;
+			}
 		  }
 		}
 
